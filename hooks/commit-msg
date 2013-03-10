@@ -1,0 +1,48 @@
+#!/usr/bin/env python
+# coding: utf-8
+"""Commit Message Review"""
+import sys
+import re
+from types import FunctionType
+
+HANDLERS = {
+    'check_message_contains_ticket': {},
+}
+
+
+def check_message_contains_ticket(message):
+    pattern = re.compile('.*(Tagging|Preparing release|Back to development:) [0-9]+\.[0-9]+(\.[0-9]+)?')
+    if re.match(pattern, message):
+        return True
+
+    pattern = re.compile('.*(refs|see|close|closes|closed|fix|fixed|fixes|addresses|refs|see|production) #[0-9]+.*')
+    if re.match(pattern, message) is None and '##' not in message:
+        return """[ERROR] Your commit message must contain a reference to a ticket
+using for example: closes #123, close #123, closed #123, fix #123, fixed #123,
+fixes #123, addresses #123, refs #123, see #123, ready for production #123.
+
+If you really want to bypass this check add ## in your commit message.
+""", False
+    return "Ok", True
+
+
+def main(message):
+    error = False
+    for handler_name in HANDLERS:
+        handler = globals()[handler_name]
+        if isinstance(handler, FunctionType):
+            HANDLERS[handler_name]['result'], status = handler(message)
+            if status is False:
+                error = True
+    if error is True:
+        print "*" * 34, "\n{:*^34}\n".format(" CHECK COMMIT IS FAILED "), "*" * 34
+        for handler_name in HANDLERS:
+            print "> {}:".format(handler_name)
+            print ">>", HANDLERS[handler_name]['result']
+        sys.exit(1)
+
+if __name__ == "__main__":
+    message_filename = sys.argv[1]
+    message_file = open(message_filename, 'r')
+    message_text = message_file.read()
+    main(message_text)
