@@ -28,3 +28,8 @@ Post-checkout:
 --------------
 
  - remove pyc files from the repo when switching branch
+
+Commit message:
+---------------
+
+ - reference one of our ticket
