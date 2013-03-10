@@ -1,0 +1,14 @@
+# -*- coding: utf-8 -*-
+#!/bin/bash
+# remove pyc files and empty directories from the repo when switching branch
+
+# $3 = 1 if checkout aims a commit and not a file
+if [ $3 = 1 ]
+then
+    # Start from the repository root.
+    cd ./$(git rev-parse --show-cdup)
+
+    # Delete .pyc files and empty directories.
+    find . -name "*.pyc" -delete
+
+fi
