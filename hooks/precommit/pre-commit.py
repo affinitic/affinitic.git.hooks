@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# inspired by http://tech.yipit.com/2011/11/16/183772396/
 import os
 import re
 import subprocess
@@ -27,13 +28,7 @@ CHECKS = [
     },
     {
         'output': 'Checking for pep8',
-        'command': 'pep8 %s',
-        'match_files': ['.*\.py$'],
-        'print_filename': True,
-    },
-    {
-        'output': 'Checking for pylint',
-        'command': 'pylint %s',
+        'command': 'pep8 --repeat --ignore E5 %s',
         'match_files': ['.*\.py$'],
         'print_filename': True,
     },
@@ -41,7 +36,8 @@ CHECKS = [
         'output': 'Checking for print statements...',
         'command': 'grep -n print %s',
         'match_files': ['.*\.py$'],
-        'ignore_files': ['.*migrations.*', '.*management/commands.*', '.*manage.py', '.*/scripts/.*'],
+        'ignore_files': ['.*migrations.*', '.*management/commands.*',
+                         '.*manage.py', '.*/scripts/.*', '.*pre-commit.py'],
         'print_filename': True,
     },
     {
@@ -79,7 +75,8 @@ def check_files(files, check, repo_root):
 
 
 def main(all_files):
-    p = subprocess.Popen(['git', 'rev-parse', '--show-toplevel'], stdout=subprocess.PIPE)
+    p = subprocess.Popen(['git', 'rev-parse', '--show-toplevel'],
+                         stdout=subprocess.PIPE)
     out, _ = p.communicate()
     repo_root = out.splitlines()[0]
     files = []
@@ -88,12 +85,14 @@ def main(all_files):
             for file_name in file_names:
                 files.append(os.path.join(root, file_name))
     else:
-        p = subprocess.Popen(['git', 'status', '--porcelain'], stdout=subprocess.PIPE)
+        p = subprocess.Popen(['git', 'status', '--porcelain'],
+                             stdout=subprocess.PIPE)
         out, err = p.communicate()
         for line in out.splitlines():
             match = modified.match(line)
             if match:
                 files.append(match.group('name'))
+    result = 0
     for check in CHECKS:
         result = check_files(files, check, repo_root) or result
     sys.exit(result)
