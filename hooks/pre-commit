@@ -1,1 +1,1 @@
-python precommit/pre-commit.py
+python ./.git/hooks/precommit/pre-commit.py
