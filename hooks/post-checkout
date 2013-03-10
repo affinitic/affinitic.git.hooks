@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #!/bin/bash
-# remove pyc files and empty directories from the repo when switching branch
+# remove pyc files from the repo when switching branch
 
 # $3 = 1 if checkout aims a commit and not a file
 if [ $3 = 1 ]
