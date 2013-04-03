@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2.7
 # inspired by http://tech.yipit.com/2011/11/16/183772396/
 import os
 import re
