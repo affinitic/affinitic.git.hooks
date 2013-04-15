@@ -1,1 +1,3 @@
-python .git/hooks/precommit/pre-commit.py
+#!/bin/sh
+HOOK_DIR=`git rev-parse --git-dir`/hooks
+python $HOOK_DIR/precommit/pre-commit.py
