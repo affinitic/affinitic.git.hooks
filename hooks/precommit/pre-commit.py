@@ -43,7 +43,13 @@ CHECKS = [
     {
         'output': 'js: Checking for console.log()...',
         'command': 'grep -n console.log %s',
-        'match_files': ['.*yipit/.*\.js$'],
+        'match_files': ['.*\.js$'],
+        'print_filename': True,
+    },
+    {
+        'output': 'puppet: Checking Puppet lint',
+        'command': 'puppet-lint %s',
+        'match_files': ['.*\.pp$'],
         'print_filename': True,
     },
 ]
