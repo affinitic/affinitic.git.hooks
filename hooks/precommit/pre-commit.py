@@ -9,31 +9,31 @@ modified = re.compile('^(?:M|A)(\s+)(?P<name>.*)')
 
 CHECKS = [
     {
-        'output': 'Checking for pdbs...',
+        'output': 'python: Checking for pdbs...',
         'command': 'grep -n "import pdb" %s',
         'ignore_files': ['.*pre-commit'],
         'print_filename': True,
     },
     {
-        'output': 'Checking for ipdbs...',
+        'output': 'python: Checking for ipdbs...',
         'command': 'grep -n "import ipdb" %s',
         'ignore_files': ['.*pre-commit'],
         'print_filename': True,
     },
     {
-        'output': 'Checking for pyflakes',
+        'output': 'python: Checking for pyflakes',
         'command': 'pyflakes %s',
         'match_files': ['.*\.py$'],
         'print_filename': True,
     },
     {
-        'output': 'Checking for pep8',
+        'output': 'python: Checking for pep8',
         'command': 'pep8 --repeat --ignore E5 %s',
         'match_files': ['.*\.py$'],
         'print_filename': True,
     },
     {
-        'output': 'Checking for print statements...',
+        'output': 'python: Checking for print statements...',
         'command': 'grep -n print %s',
         'match_files': ['.*\.py$'],
         'ignore_files': ['.*migrations.*', '.*management/commands.*',
@@ -41,7 +41,7 @@ CHECKS = [
         'print_filename': True,
     },
     {
-        'output': 'Checking for console.log()...',
+        'output': 'js: Checking for console.log()...',
         'command': 'grep -n console.log %s',
         'match_files': ['.*yipit/.*\.js$'],
         'print_filename': True,
