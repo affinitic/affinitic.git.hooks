@@ -12,12 +12,14 @@ CHECKS = [
         'output': 'python: Checking for pdbs...',
         'command': 'grep -n "import pdb" %s',
         'ignore_files': ['.*pre-commit'],
+        'match_files': ['.*\.py$'],
         'print_filename': True,
     },
     {
         'output': 'python: Checking for ipdbs...',
         'command': 'grep -n "import ipdb" %s',
         'ignore_files': ['.*pre-commit'],
+        'match_files': ['.*\.py$'],
         'print_filename': True,
     },
     {
