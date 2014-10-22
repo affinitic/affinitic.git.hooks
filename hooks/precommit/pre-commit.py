@@ -36,7 +36,7 @@ CHECKS = [
     },
     {
         'output': 'python: Checking for print statements...',
-        'command': 'grep -n print %s',
+        'command': 'grep -n \'print \' %s',
         'match_files': ['.*\.py$'],
         'ignore_files': ['.*migrations.*', '.*management/commands.*',
                          '.*manage.py', '.*/scripts/.*', '.*pre-commit.py'],
