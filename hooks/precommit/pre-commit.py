@@ -30,7 +30,7 @@ CHECKS = [
     },
     {
         'output': 'python: Checking for pep8',
-        'command': 'pep8 --repeat --ignore E5 %s',
+        'command': 'pep8 --repeat --ignore E5,E712 %s',
         'match_files': ['.*\.py$'],
         'print_filename': True,
     },
