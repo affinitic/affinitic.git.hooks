@@ -1,0 +1,12 @@
+#!/bin/bash
+CMD="bin/test"
+
+if [ -f "$CMD" ]; then
+    $CMD
+    RESULT=$?
+    if [ $RESULT -ne 0 ]; then
+        echo "failed $CMD"
+        exit 1
+    fi
+fi
+exit 0
