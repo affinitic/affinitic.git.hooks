@@ -1,9 +1,17 @@
 #!/bin/bash
 if [ -f "Makefile" ]; then
-    CMD="make test-plone3"
+    makelist=$(make -qp | awk -F':' '/^[a-zA-Z0-9][^$#\/\t=]*:([^=]|$)/ {split($1,A,/ /);for(i in A)print A[i]}')
+    for maketest in "test-plone3" "test"
+    do
+        if [ $(echo "$makelist" | grep -x "$maketest") ];then
+            CMD="make $maketest"
+            break
+        fi
+    done
 elif [ -f "bin/test" ]; then
     CMD="bin/test"
 fi
+
 if [ ! -z "$CMD" ]; then
     $CMD
     RESULT=$?
