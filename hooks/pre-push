@@ -1,7 +1,10 @@
 #!/bin/bash
-CMD="bin/test"
-
-if [ -f "$CMD" ]; then
+if [ -f "Makefile" ]; then
+    CMD="make test-plone3"
+elif [ -f "bin/test" ]; then
+    CMD="bin/test"
+fi
+if [ ! -z "$CMD" ]; then
     $CMD
     RESULT=$?
     if [ $RESULT -ne 0 ]; then
