@@ -6,24 +6,25 @@ import re
 from types import FunctionType
 
 HANDLERS = {
-    'check_message_contains_ticket': {},
+    'check_trac_link': {},
 }
 
+def check_trac_link(message):
 
-def check_message_contains_ticket(message):
-    pattern = re.compile('.*(Tagging|Preparing release|Back to development:) [0-9]+\.[0-9]+(\.[0-9]+)?')
-    if re.match(pattern, message):
-        return "Ok", True
-
-    pattern = re.compile('.*(refs|see|close|closes|closed|fix|fixed|fixes|addresses|refs|see|production) #[0-9]+.*')
-    if re.match(pattern, message) is None and '##' not in message:
-        return """[ERROR] Your commit message must contain a reference to a ticket
-using for example: closes #123, close #123, closed #123, fix #123, fixed #123,
-fixes #123, addresses #123, refs #123, see #123, ready for production #123.
-
-If you really want to bypass this check add ## in your commit message.
-""", False
+    parseds = parse_commit_message(message)
+    print parseds
+    print message
+    if not parseds and '##' not in message:
+        return """[ERROR] Your commit message must contain a reference to a ticket using for example: refs trac_name #123
+If you really want to bypass this check add ## in your commit message.""", False
     return "Ok", True
+
+
+
+
+
+
+
 
 
 def main(message):
@@ -41,8 +42,18 @@ def main(message):
             print ">>", HANDLERS[handler_name]['result']
         sys.exit(1)
 
+
+def extract_commit_message(message_file):
+    message_text = message_file.readlines()
+    extracted_message =""
+    for line in message_text:
+        if "7==========>" in line:
+            return extracted_message
+        extracted_message = extracted_message + line
+
+
 if __name__ == "__main__":
     message_filename = sys.argv[1]
     message_file = open(message_filename, 'r')
-    message_text = message_file.read()
-    main(message_text)
+    extracted_message = extract_commit_message(message_file)
+    main(extracted_message)
