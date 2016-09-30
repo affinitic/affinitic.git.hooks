@@ -4,7 +4,7 @@
 import sys
 import re
 from types import FunctionType
-from hooks.utils import parse_commit_message
+from utils import parse_commit_message
 
 HANDLERS = {
     'check_trac_link': {},
