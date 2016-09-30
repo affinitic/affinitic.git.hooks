@@ -1,4 +1,4 @@
-from affinitic.git.hooks.utils import parse_commit_message
+from hooks.utils import parse_commit_message
 import unittest
 
 

@@ -11,7 +11,7 @@ long_description = (
     open('CHANGES.txt').read()
     + '\n')
 
-setup(name='affinitic.git.hooks',
+setup(name='affinitic_git_hooks',
       version=version,
       description="Affinitic git hooks",
       long_description=long_description,
@@ -21,9 +21,7 @@ setup(name='affinitic.git.hooks',
       author_email='',
       url='http://svn.plone.org/svn/collective/',
       license='gpl',
-      packages=find_packages('src'),
-      package_dir={'': 'hooks'},
-      namespace_packages=[],
+      packages=find_packages(),
       include_package_data=True,
       zip_safe=False,
       install_requires=[
