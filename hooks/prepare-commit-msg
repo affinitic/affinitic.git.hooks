@@ -22,6 +22,10 @@ val = "<+trac_name+>"
 if search:
     group_dicts = search.groupdict()
     val = group_dicts['git_name'] or group_dicts['http_name']
+    if 'affinitic' in val:
+        val = 'affinitic'
+    if 'arsia' in val:
+        val = 'arsia'
 
 with open(commit_msg_filepath, 'r+') as f:
     content = f.read()
