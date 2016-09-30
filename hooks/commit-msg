@@ -2,7 +2,6 @@
 # coding: utf-8
 """Commit Message Review"""
 import sys
-import re
 from types import FunctionType
 from utils import parse_commit_message
 
@@ -10,11 +9,10 @@ HANDLERS = {
     'check_trac_link': {},
 }
 
+
 def check_trac_link(message):
 
     parseds = parse_commit_message(message)
-    print parseds
-    print message
     if not parseds and '##' not in message:
         return """[ERROR] Your commit message must contain a reference to a ticket using for example: refs trac_name #123
 If you really want to bypass this check add ## in your commit message.""", False
@@ -39,7 +37,7 @@ def main(message):
 
 def extract_commit_message(message_file):
     message_text = message_file.readlines()
-    extracted_message =""
+    extracted_message = ""
     for line in message_text:
         if "7==========>" in line:
             return extracted_message

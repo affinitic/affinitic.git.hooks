@@ -30,10 +30,8 @@ if search:
 with open(commit_msg_filepath, 'r+') as f:
     content = f.read()
     f.seek(0, 0)
-    f.write("<+header+>\n\n")
-    f.write("<+body+>\n\n")
-    f.write("This refs %s #<+ticket+>\n" % (val))
+    f.write("\n\nThis refs %s #\n\n" % (val))
     f.write("# 7==========>\n")
-    f.write("# Allowed actions: \n")
+    f.write("# Allowed actions:\n")
     f.write("# testing, production, close\n")
     f.write(content)
