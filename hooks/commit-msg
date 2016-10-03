@@ -28,6 +28,9 @@ def main(message):
             if status is False:
                 error = True
     if error is True:
+        message_file = open('.git/COMMIT_LASTFAILED', 'w')
+        message_file.write(message)
+        message_file.close()
         print "*" * 34, "\n{:*^34}\n".format(" CHECK COMMIT IS FAILED "), "*" * 34
         for handler_name in HANDLERS:
             print "> {}:".format(handler_name)
