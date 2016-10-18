@@ -10,6 +10,12 @@ if [ -f "Makefile" ]; then
     done
 elif [ -f "bin/test" ]; then
     CMD="bin/test"
+elif [ -d "../../devel" ]; then
+    if [ -f "../../bin/test-all" ]; then
+        CURRENT=`pwd`
+        BASENAME=`basename "$CURRENT"`
+        CMD="../../bin/test-all --package=$BASENAME"
+    fi
 fi
 
 if [ ! -z "$CMD" ]; then
