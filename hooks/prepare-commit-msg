@@ -31,6 +31,8 @@ if search:
 
 with open(commit_msg_filepath, 'r+') as f:
     content = f.read()
+    if "# 7==========>" in content:
+        sys.exit(0)
     f.seek(0, 0)
     if os.path.isfile('.git/COMMIT_LASTFAILED'):
         message_file = open('.git/COMMIT_LASTFAILED', 'r')
