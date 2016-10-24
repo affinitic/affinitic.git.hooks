@@ -26,6 +26,8 @@ if search:
         val = 'affinitic'
     if 'arsia' in val:
         val = 'arsia'
+    if 'cerise' in val:
+        val = 'arsia'
 
 with open(commit_msg_filepath, 'r+') as f:
     content = f.read()
