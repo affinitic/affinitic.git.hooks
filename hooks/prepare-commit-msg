@@ -29,8 +29,32 @@ if search:
     if 'cerise' in val:
         val = 'arsia'
 
+
+def isMerge(content):
+    if "Merge branch" in content:
+        return True
+    return False
+
+
+def isRebase():
+    pr = subprocess.Popen("/usr/bin/git branch",
+                          cwd=os.getcwd(),
+                          shell=True,
+                          stdout=subprocess.PIPE,
+                          stderr=subprocess.PIPE)
+    (out, error) = pr.communicate()
+    search = re.search(
+        '\* (?P<branch>.*)',
+        out)
+    if search and 'no branch' in search.groupdict()['branch']:
+        return True
+    return False
+
+
 with open(commit_msg_filepath, 'r+') as f:
     content = f.read()
+    if isMerge(content) or isRebase():
+        sys.exit(0)
     if "# 7==========>" in content:
         sys.exit(0)
     f.seek(0, 0)

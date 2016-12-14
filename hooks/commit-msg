@@ -45,6 +45,7 @@ def extract_commit_message(message_file):
         if "7==========>" in line:
             return extracted_message
         extracted_message = extracted_message + line
+    return extracted_message
 
 
 if __name__ == "__main__":
