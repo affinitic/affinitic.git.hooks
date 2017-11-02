@@ -36,6 +36,12 @@ def isMerge(content):
     return False
 
 
+def isRevert(content):
+    if "This reverts commit" in content:
+        return True
+    return False
+
+
 def isRebase():
     pr = subprocess.Popen("/usr/bin/git branch",
                           cwd=os.getcwd(),
@@ -53,7 +59,7 @@ def isRebase():
 
 with open(commit_msg_filepath, 'r+') as f:
     content = f.read()
-    if isMerge(content) or isRebase():
+    if isMerge(content) or isRebase() or isRevert(content):
         sys.exit(0)
     if "# 7==========>" in content:
         sys.exit(0)
