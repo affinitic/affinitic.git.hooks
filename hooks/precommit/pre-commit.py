@@ -23,15 +23,15 @@ CHECKS = [
         'print_filename': True,
     },
     {
-        'output': 'python: Checking for pyflakes',
-        'command': 'pyflakes %s',
+        'output': 'python: Checking for flake8',
+        'command': 'flake8 %s',
         'match_files': ['.*\.py$'],
         'print_filename': True,
     },
     {
-        'output': 'python: Checking for pep8',
-        'command': 'pep8 --repeat --ignore E501,E711,E712 %s',
-        'match_files': ['.*\.py$'],
+        'output': 'i18n: Checking for i18ndude',
+        'command': 'i18ndude find-untranslated -n %s',
+        'match_files': ['.*\.pt$'],
         'print_filename': True,
     },
     {
